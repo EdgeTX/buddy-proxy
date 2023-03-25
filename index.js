@@ -41,7 +41,8 @@ addEventListener("fetch", async event=>{
             }
             return myHeaders;
         }
-        var fetch_url = decodeURIComponent(decodeURIComponent(origin_url.search.substr(1)));
+
+        var fetch_url = decodeURIComponent(decodeURIComponent(origin_url.pathname.substring(1)));
 
         var orig = event.request.headers.get("Origin");
         
@@ -57,7 +58,7 @@ addEventListener("fetch", async event=>{
                 } catch (e) {}
             }
 
-            if (origin_url.search.startsWith("?")) {
+            if (fetch_url != "") {
                 recv_headers = {};
                 for (var pair of event.request.headers.entries()) {
                     if ((pair[0].match("^origin") == null) && 
@@ -70,13 +71,6 @@ addEventListener("fetch", async event=>{
 		    
                 if (xheaders != null) {
                     Object.entries(xheaders).forEach((c)=>recv_headers[c[0]] = c[1]);
-                }
-
-                if (cookies != null) {
-                    recv_headers["Cookie"] = cookies;
-                }
-                if (host != null) {
-                    recv_headers["Host"] = host;
                 }
 
                 newreq = new Request(event.request,{
