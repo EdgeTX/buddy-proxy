@@ -49,11 +49,9 @@ export default {
         }
         
         let fetch_url = decodeURIComponent(origin_url.pathname);
-        console.log("fetch_url = ", fetch_url);
-
         const m = url_regex.exec(fetch_url);
+
         if (m === null) {
-            console.log("Reply 404: ", m)
             return new Response(
                 "Missing URL",
                 {
@@ -66,7 +64,6 @@ export default {
             );
         }
         fetch_url = m[1] + "://" + m[3];
-        console.log("fetch_url = ", fetch_url);
 
         const orig = request.headers.get("Origin");
         const remIp = request.headers.get("CF-Connecting-IP");
