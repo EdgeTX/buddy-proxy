@@ -37,7 +37,7 @@ export default {
                 myHeaders.set("Access-Control-Allow-Methods", request.headers.get("access-control-request-method"));
                 //myHeaders.set("Access-Control-Allow-Credentials", "true");
 
-                const acrh = event.request.headers.get("access-control-request-headers");
+                const acrh = request.headers.get("access-control-request-headers");
                 if (acrh) {
                     myHeaders.set("Access-Control-Allow-Headers", acrh);
                 }
